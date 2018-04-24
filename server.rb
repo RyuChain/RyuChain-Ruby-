@@ -1,11 +1,15 @@
 # encoding: UTF-8
 
 require 'sinatra'
+require './block'
 
-get '/mining' do
-    "<h1 style = 'text-align:center'>회원가입 페이지 입니다.</h1>"
+cDog = Dog.new
+
+get '/' do
+    "Dog " + cDog.my_weighht
 end
 
-get '/make_a_transaction' do
-    '로그아웃 하셨습니다.'
+get '/eat' do
+    cDog.eat
+    '먹었음'
 end
