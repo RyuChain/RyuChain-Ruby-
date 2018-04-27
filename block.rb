@@ -1,18 +1,49 @@
-class Dog
+require 'digest'
+
+class BlockHeader
 
     def initialize
-        @weight = 0.5
+        @time
+        @prevBlockHash
+        @nonce
+        @height
     end
 
-    def my_weighht
-          @weight.to_s
-    end
-       
-    def eat
-        @weight += 0.5
+    def prevBlockInfo
     end
 
-    def run
+end
+
+class BlockChain
+
+    def initialize
+        @chain = []
+    end
+
+    def mining
+        
+        begin
+            nonce  = rand(10000000)
+            hashed = Digest::SHA256.hexdigest(nonce.to_s)
+        end while hashed[0..3] != "0000"
+
+        block = {
+            "nHeight" => @chain.size,
+            "nTime" => Time.now.to_i,
+            "nNonce" => nonce,
+            "preveious_address" => Digest::SHA256.hexdigest(last_block.to_s)
+        }
+
+        @chain << block
+
+    end
+
+    def last_block
+        @chain[-1]
+    end
+
+    def all_chains
+        @chain
     end
 
 end

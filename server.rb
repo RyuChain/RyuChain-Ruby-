@@ -3,13 +3,12 @@
 require 'sinatra'
 require './block'
 
-cDog = Dog.new
+blockchain = BlockChain.new
 
 get '/' do
-    "Dog " + cDog.my_weighht
+    blockchain.allchains.to_s
 end
 
-get '/eat' do
-    cDog.eat
-    '먹었음'
+get '/mine' do    
+    blockchain.mining.to_s
 end
