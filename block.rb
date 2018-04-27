@@ -1,5 +1,4 @@
 require 'digest'
-
 class BlockHeader
 
     def initialize
@@ -43,7 +42,9 @@ class BlockChain
     end
 
     def all_chains
+
         @chain
+
     end
 
 end

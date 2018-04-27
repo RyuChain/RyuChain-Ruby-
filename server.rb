@@ -6,7 +6,20 @@ require './block'
 blockchain = BlockChain.new
 
 get '/' do
-    blockchain.allchains.to_s
+
+    message = "<center>"
+
+    blockchain.all_chains.each do |eachBlock|
+        message << "BlockHeight        : " + eachBlock["nHeight"].to_s + "<br>"
+        message << "Time               : " + eachBlock["nTime"].to_s + "<br>"
+        message << "Nonce              : " + eachBlock["nNonce"].to_s + "<br>"
+        message << "Previous_BlockHash : " + eachBlock["preveious_address"].to_s + "<br>"
+        message << "Cur_BlockHash      : " + Digest::SHA256.hexdigest(eachBlock.to_s) + "<br>"
+        message << "<hr>"
+    end
+
+    message << "</center>"
+    message
 end
 
 get '/mine' do    
