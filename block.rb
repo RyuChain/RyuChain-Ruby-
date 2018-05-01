@@ -1,4 +1,6 @@
 require 'digest'
+require 'securerandom'
+
 class BlockHeader
 
     def initialize
@@ -18,19 +20,42 @@ class BlockChain
     def initialize
         @chain = []
         @transaction = []
+        @wallet = {}
     end
 
-    def make_a_trans(sender, recvier, amount)
+    def make_a_wallet
+        address = SecureRandom.uuid.gsub("-", "")
+        @wallet[address] = 100
+        @wallet
+    end
+
+    def wallet_list
+        @wallet
+    end
+
+    def make_a_trans(sender, recevier, amount)
+
+        if @wallet[sender].nil?
+            "없는 지갑입니다."
+        elsif @wallet[recevier].nil?
+            "없는 지갑입니다."
+        elsif @wallet[sender].to_f < amount.to_f
+            "돈이 부족합니다."
+        else
+
+        @wallet[sender] = @wallet[sender] - amount.to_f
+        @wallet[recevier] = @wallet[recevier] + amount.to_f
 
         trans = {
             "sender" => sender,
-            "recv"   => recvier,
+            "recv"   => recevier,
             "amount" => amount
         }
 
         @transaction << trans
 
         "다음 블록에 쓰여집니다." + (@chain.length + 1).to_s
+    end
     end
 
     def mining

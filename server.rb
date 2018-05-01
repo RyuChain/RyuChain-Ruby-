@@ -30,3 +30,11 @@ end
 get '/trans' do
     blockchain.make_a_trans(params["send"], params["recv"], params["amount"])
 end
+
+get '/new_wallet' do
+    blockchain.make_a_wallet.to_s
+end
+
+get '/wallet_list' do
+    blockchain.wallet_list.to_s
+end
