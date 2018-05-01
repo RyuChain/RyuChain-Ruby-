@@ -15,6 +15,7 @@ get '/' do
         message << "Nonce              : " + eachBlock["nNonce"].to_s + "<br>"
         message << "Previous_BlockHash : " + eachBlock["preveious_address"].to_s + "<br>"
         message << "Cur_BlockHash      : " + Digest::SHA256.hexdigest(eachBlock.to_s) + "<br>"
+        message << "Cur_Transaction    : " + eachBlock["Transactions"].to_s + "<br>"
         message << "<hr>"
     end
 

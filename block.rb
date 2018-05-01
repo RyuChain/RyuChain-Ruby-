@@ -44,7 +44,8 @@ class BlockChain
             "nHeight" => @chain.size,
             "nTime" => Time.now.to_i,
             "nNonce" => nonce,
-            "preveious_address" => Digest::SHA256.hexdigest(last_block.to_s)
+            "preveious_address" => Digest::SHA256.hexdigest(last_block.to_s),
+            "Transactions" => @transaction
         }
 
         @chain << block
