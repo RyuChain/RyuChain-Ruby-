@@ -25,3 +25,7 @@ end
 get '/mine' do    
     blockchain.mining.to_s
 end
+
+get '/trans' do
+    blockchain.make_a_trans(params["send"], params["recv"], params["amount"])
+end

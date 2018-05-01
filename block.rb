@@ -17,6 +17,20 @@ class BlockChain
 
     def initialize
         @chain = []
+        @transaction = []
+    end
+
+    def make_a_trans(sender, recvier, amount)
+
+        trans = {
+            "sender" => sender,
+            "recv"   => recvier,
+            "amount" => amount
+        }
+
+        @transaction << trans
+
+        "다음 블록에 쓰여집니다." + (@chain.length + 1).to_s
     end
 
     def mining
