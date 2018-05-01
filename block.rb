@@ -48,6 +48,7 @@ class BlockChain
             "Transactions" => @transaction
         }
 
+        @transaction = []
         @chain << block
 
     end
