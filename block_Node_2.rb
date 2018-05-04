@@ -95,8 +95,8 @@ class BlockChain
         
             if @chain.length < n_block.to_i
                 json_chain = @chain.to_json
-                HTTParty.get("http://localhost:" + n + "/recv_chain?chain=" + json_chain)
-                @chain = []
+                full_chain = HTTParty.get("http://localhost:" + n + "/recv_chain?chain=" + json_chain)
+                @chain = JSON.parse(full_chain)
             end
         end
     end
@@ -105,6 +105,7 @@ class BlockChain
         block.each do |b|
             @chain << b
         end
+        @chain.to_json
     end
 
     def add_port(port)
