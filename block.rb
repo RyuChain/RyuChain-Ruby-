@@ -1,5 +1,7 @@
 require 'digest'
 require 'securerandom'
+require 'httparty'
+require 'json'
 
 class BlockHeader
 
@@ -21,6 +23,7 @@ class BlockChain
         @chain = []
         @transaction = []
         @wallet = {}
+        @node = []
     end
 
     def make_a_wallet
@@ -83,9 +86,35 @@ class BlockChain
     end
 
     def all_chains
-
         @chain
+    end
 
+    def ask_block
+        @node.each do |n|
+            n_block = HTTParty.get("http://localhost:" + n + "/number_of_blocks").body
+        
+            if @chain.length < n_block.to_i
+                json_chain = @chain.to_json
+                HTTParty.get("http://localhost:" + n + "/recv_chain?chain=" + json_chain)
+                @chain = []
+            end
+        end
+    end
+
+    def add_block(block)
+        block.each do |b|
+            @chain << b
+        end
+    end
+
+    def add_port(port)
+        @node << port
+        @node.compact!
+        @node.uniq!
+    end
+
+    def all_node
+        @node
     end
 
 end

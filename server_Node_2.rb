@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 require 'sinatra'
-require './block'
+require './block_Node_2'
 
 set :port, 4568
 
@@ -39,4 +39,27 @@ end
 
 get '/wallet_list' do
     blockchain.wallet_list.to_s
+end
+
+get '/number_of_blocks' do
+    blockchain.all_chains.size.to_s
+end
+
+get '/ask' do
+    blockchain.ask_block
+end
+
+get '/add_node' do
+    port = params["port"]
+    blockchain.add_port(port)
+end
+
+get '/all_node' do
+    blockchain.all_node.to_s
+end
+
+get '/recv_chain' do
+    recv_chain = params["chain"]
+    extracted = JSON.parse(recv_chain)
+    blockchain.add_block(extracted)
 end
